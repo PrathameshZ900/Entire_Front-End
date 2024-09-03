@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Corrected "leng" to "lang" -->
+<head>
+    <title>My Personal Blog</title>
+    <meta charset="UTF-8">
+    <!-- Enhanced viewport meta tag for better mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+
+/* Basic reset and styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+/* Styling the header */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Navigation Menu */
+nav ul {
+    background-color: #444;
+    overflow: hidden;
+    color: white;
+    padding: 0;
+    text-align: center;
+    margin: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    padding: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+/* Styling the blog introduction section */
+section {
+    padding: 20px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+/* Styling the form */
+form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<!-- Added a header for the blog title and tagline -->
+<header>
+    <h1>My Personal Blog</h1>
+    <p>Sharing my thoughts and experiences</p>
+</header>
+
+<!-- Navigation Menu -->
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li> <!-- Made list items clickable -->
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Changed the non-semantic div to a more semantic section element -->
+<section>
+    <h2>Welcome to my blog</h2>
+    <p>This is the introduction paragraph of my personal blog. Here, I'll be sharing my thoughts on various topics.</p>
+</section>
+
+<!-- Subscription Form -->
+<form action="#">
+    <div>
+        <!-- Added labels for each input for better accessibility -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="username" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required> <!-- Added the missing name attribute -->
+    </div>
+    <button type="submit">Subscribe</button>
+</form>
+
+<!-- Footer with copyright information -->
+<footer>
+    <p>© 2023 My Personal Blog</p>
+</footer>
+
+</body>
+</html>

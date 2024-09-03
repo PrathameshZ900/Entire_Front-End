@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I have Build this layout using CSS Selectors</title>
+    <style>
+         .heding{
+            text-align: center;
+            padding: 30px;
+            margin: auto;
+            
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+         }
+         #h1{
+            font-size: 50px;
+         }
+         p {
+            text-align: center;
+            font-size: 27px;
+            color: rgb(88, 88, 88);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+         }
+         img {
+            display: block;
+            padding-top: 20px;
+            margin: auto;
+         }    
+         #h2{
+             font-size: 30px;
+             color: rgb(95, 94, 94);
+         }
+         a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: rgb(1, 85, 219);
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #q{
+            font-size: 19px;
+
+        }
+        button {
+            color: red;
+            background-color: rgb(255, 255, 255);
+            border: none;
+            display: block;
+            margin: auto;
+            font-size: 20px;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 20px;
+        }
+
+        button:hover {
+            color: rgb(62, 0, 0);
+            background-color: rgb(255, 242, 63);
+            cursor: pointer;
+            border-radius: 20px;
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="heding" id="h1">Contact Us</h1>
+    <p>We know that choosing the right institute or a career path can be a difficult and tiring process, and that's why <br> we're 
+        here for you. Contact us to ask any questions, we'll respond over email as soon as possible!</p>
+
+    <img src="https://www.masaischool.com/images/contact/mail.svg" alt="mail-img">    
+
+    <h2 class="heding" id="h2">Write to us at</h2>
+    <a href="admissions@masaischool.com">admissions@masaischool.com</a>
+    <hr>
+    <div style="display: flex; align-items: center; padding-right: 400px;">
+        <img src="https://www.svgrepo.com/show/475150/chat.svg" alt="chat" style="width: 25px; height: auto; margin-right: 10px;">
+        <p id="q" style="font-size: 16px; color: #555; font-family: 'Arial', sans-serif; line-height: 1.4;">
+            Explore more, connect with us, and stay updated. Your satisfaction is our priority. Reach out <br> to us for any inquiries or feedback. Thank you for visiting!
+        </p>
+    </div>
+    <button >Click Here To Register</button>
+
+</body>
+</html>

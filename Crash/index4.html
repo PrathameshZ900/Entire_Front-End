@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Hover Effect</title>
+    <style>
+        /* Style for the whole page */
+        body {
+            display: flex; /* Align items in the center horizontally */
+            justify-content: center; /* Align items in the center horizontally */
+            align-items: center; /* Align items in the center vertically */
+            min-height: 100vh; /* Take the full height of the viewport */
+            margin: 0; /* Remove default margins */
+            background-color: #f0f0f0; /* Light grey background for the page */
+        }
+
+        /* Container for the boxes */
+        .box-container {
+            display: flex; /* Display the boxes in a row */
+            gap: 20px; /* Space between each box */
+        }
+
+        /* General style for each box */
+        .box {
+            width: 100px; /* Width of each box */
+            height: 100px; /* Height of each box */
+            background-color: #3498db; /* Initial background color (blue) */
+            display: flex; /* Flexbox to center the content */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            font-size: 20px; /* Font size for the text inside the box */
+            color: #fff; /* Text color (white) */
+            transition: all 0.3s ease; /* Smooth transition for all changes */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        /* Special hover effect for the third box */
+        .box-container .box:nth-child(3):hover {
+            width: 200px; /* Double the width */
+            height: 200px; /* Double the height */
+            background-color: #e74c3c; /* Change to red color on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Container holding all the boxes -->
+    <div class="box-container">
+        <!-- Five boxes with numbers -->
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+</body>
+</html>
