@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><img src="" alt="">Sugar</title>
+    <style>
+        body{
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            
+            
+            margin: auto;
+        
+        }
+        nav{
+            width: 100%;
+            color:antiquewhite ;
+            position: fixed;
+            background-color: antiquewhite;
+
+            
+        }
+        #main{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background-color:black ;
+            align-items: center;
+            height: 110px;
+        }
+        #search{
+            width: 60%;
+            display: flex;
+            margin-left: 10px;
+            align-items:center;
+            background-color: rgb(255, 255, 255);
+            color: #000000;
+            height:40px;
+            border-radius: 10px;
+            padding-right: 5px;
+
+            
+           
+        }
+        #search>img{
+            width: 20px;
+        }
+        #search>input{
+            background-color: rgb(26, 25, 25);
+            border: 0.5px solid rgb(242, 242, 242);
+            height: 87%;
+            width: 87%;
+            border-radius: 10px 0px 0px 10px;
+            color: rgb(255, 56, 56);
+            padding-left: 10px;
+        }
+        #left{
+            width: 70%;
+            display:flex ;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #right{
+            width: 20%;
+            display: flex;
+            justify-content: space-between;
+        }
+        #login{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #login:hover{
+            cursor: pointer;
+        }
+        #cart{
+            display: flex;
+            justify-content: space-evenly;
+            width: 50%;
+            align-items:center;
+        }
+        #logoimg{
+            width: 40%;
+
+             }
+        img{
+            width: 30px;
+        } 
+        img:hover{
+            cursor: pointer;
+        }    
+        #sec{
+            background-color: rgb(19, 18, 18);
+            height: 40px;
+            padding-top: 20px;
+            
+        }
+        #sec>a{
+            color: rgb(255, 251, 245);
+            margin: auto;
+            
+            text-decoration: none;
+            padding-left: 30px;
+            align-items: center;
+
+        }
+        #navd{
+            padding-top: 180px;
+            display: flex;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+            padding-bottom: 10px;
+        }
+        #navd>a:nth-child(1){
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+            padding-left: 30px;
+            
+        }
+        #navd>a:last-child{
+            color: rgb(31, 30, 30);
+            text-decoration: none;
+            padding-left: 10px;
+
+        }
+        #offers{
+            width: 95%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            padding: 20px;
+            gap: 20px;
+            
+        }
+        #offers>div{
+            
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 20px;
+            justify-content: center;
+            margin: auto;
+        }
+        #offers>div>img{
+            width: 93%;
+            border-radius: 20px;
+            padding: 10px;
+            border-radius: 2px dashed pink;
+        }
+        #offers>div>div{
+            padding-left: 60%;
+            padding-bottom: 10px;
+         
+
+        }
+        #offers>div>div>button{
+            border: 2px dashed pink;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgb(255, 97, 123);
+            border-radius: 5px;
+        }
+        span{
+            color: rgb(252, 82, 241);
+        }
+
+        .okk{
+            padding-left: 40%;
+            
+        }
+        p{
+            font-size: 20px;
+            padding-left: 35%;
+        }
+        #foot{
+            
+        }
+        #footsearch{
+            width: 65%;
+            display: flex;
+            margin-left: 10px;
+            align-items:center;
+            background-color: rgb(255, 255, 255);
+            color: #000000;
+            height:40px;
+            border-radius: 10px;
+            padding-right: 5px;
+            border: 2px solid rgb(48, 48, 48);
+            margin-left: 23%;
+
+        }
+        #footsearch>img{
+            width: 20px;
+        }
+
+
+        #footsearch>input{
+            background-color: rgb(233, 233, 233);
+            border: 0px solid rgb(119, 119, 119);
+            height: 87%;
+            width: 87%;
+            border-radius: 10px 0px 0px 10px;
+            color: rgb(255, 56, 56);
+            padding-left: 10px;
+        }
+
+        @media only screen and (max-width: 540px) and (min-width: 300px) {
+  /* Styles for screens with width between 400px and 600px */
+  /* Add your styles here */
+        #offers{
+            grid-template-columns: repeat(1,1fr);
+            width: 60%;
+  
+        }
+       #search{
+        display: none;
+       }
+        nav{
+            padding-top: 0px;
+        }
+        
+        #navd{
+            display: none;
+        }
+        #sec{
+            display: none;
+        }
+        .okk{
+            padding-top: 150px;
+            font-size: 20px;
+            padding-left:30%;
+            
+        }
+        #foot{
+            display: none;
+        }
+        #right{
+            display:none;
+        }
+       #main{
+        height: 70px;
+        padding-top:0px ;
+       }
+       #left{
+        width: 90%;
+        justify-content: space-between;
+       }
+       #logoimg{
+        height: 100%;
+       }
+}
+        #code{
+            display: flex;
+            width: 30%;
+            
+        }
+        #imgg{
+            height: 17px;
+            width: 17px;
+            padding: 14px 7px;
+            border: 2px  dotted transparent;
+            border-color: rgb(252, 156, 172);
+            border-radius: 0px 8px 8px 0px;
+            margin-top: 20px;
+            /* margin-right: 20px; */
+        }
+        #p{
+            border: 2px dotted rgb(237, 132, 150);
+            border-radius: 8px 0px 0px 8px;
+            padding: 10px 10px;
+          
+            color: rgb(252, 149, 166);
+            font-weight: 400;
+            border-right: none;
+        }  
+
+
+@media only screen and (max-width: 800px) and (min-width: 540px) {
+  /* Styles for screens with width between 400px and 600px */
+  /* Add your styles here */
+        #offers{
+            grid-template-columns: repeat(2,1fr);
+  
+        }
+       #search{
+        display: none;
+       }
+        nav{
+            padding-top: 0px;
+        }
+        
+        #navd{
+            display: none;
+        }
+        #sec{
+            display: none;
+        }
+        .okk{
+            padding-top: 150px;
+            font-size: 20px;
+            padding-left:30%;
+            
+        }
+        #foot{
+            display: none;
+        }
+        #right{
+            display:none;
+        }
+       #main{
+        height: 70px;
+        padding-top:0px ;
+       }
+       #left{
+        width: 90%;
+        justify-content: space-between;
+       }
+       #logoimg{
+        height: 100%;
+       }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <nav>
+       <div id="main">
+        <div id="left">
+            <img id="logoimg" src="https://in.sugarcosmetics.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSUGAR%2BNonCV-Logo-Mobile-Desktop.0e80aac7.gif&w=384&q=100" alt="Sugar" id="logo">
+            <div id="search"><input type="text" placeholder='Try "Liquid Lipstick" '> <img id="searchimg" src="https://www.svgrepo.com/show/532554/search-alt.svg" alt="" > Search</div>
+            
+        </div>
+        <div id="right">
+            <div id="login"><img src="https://www.svgrepo.com/show/384671/account-avatar-profile-user-14.svg" alt="">LogIn/Register</div>
+            <div id="cart"><img src="https://www.svgrepo.com/show/245145/love-like.svg" alt=""><img src="https://www.svgrepo.com/show/425177/cart-market-buy.svg" alt=""><img src="https://www.svgrepo.com/show/228785/banking-discount.svg" alt=""></div>
+        </div>
+
+       </div>
+       <div id="sec">
+        <a href="#">LIPS</a>
+        <a href="#">EYES</a>
+        <a href="#">FACE</a>
+        <a href="#">NAILS</a>
+        <a href="#">SKINCARE</a>
+        <a href="#">ACCESSORIES</a>
+        <a href="#">HOLI GIFTING</a>
+        <a href="#">BEST SELLER</a>
+        <a href="#">NEW LAUNCHES</a>
+        <a href="#">OFFERS</a>
+        <a href="#">BLOGS</a>
+       </div>
+    </nav>
+    <div id="navd">
+        <a href="#">HOME ></a>
+        <a href="#">OFFER</a>
+
+    </div>
+    <h1 class="okk"><span>----</span> OFFERS <span>----</span></h1>
+    <div id="offers">
+       
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div><button>Holi898</button> <img src="https://www.svgrepo.com/show/522391/copy.svg" alt=""></div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div><button>Holi898</button> <img src="https://www.svgrepo.com/show/522391/copy.svg" alt=""></div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+        <div>
+            <img src="https://d32baadbbpueqt.cloudfront.net/Promotion/ffca0da4-6728-45cc-ab15-dd32302253cd.jpg" alt="">
+            <div id="code">
+                <p id="p">DEAL300</p>
+                <img src="https://in.sugarcosmetics.com/desc-images/copyIconBlack.png" alt="" id="imgg">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="foot">    <h1 class="okk"><span>----</span> LET’S STAY IN TOUCH <span>----</span></h1>  
+        <p >Get the latest beauty tips straight to your inbox. Can’t wait to connect!</p>
+
+        <div id="footsearch"><input type="text" placeholder='ENTER EMAIL '> <img id="searchimg" src="https://www.svgrepo.com/show/532554/search-alt.svg" alt="" > Search</div>
+    </div>
+</body>
+</html>
