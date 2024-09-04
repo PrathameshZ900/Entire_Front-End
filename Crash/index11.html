@@ -15,13 +15,14 @@
 
         /* Navigation Bar */
         .navbar {
-            background-color: #333;
+            background: linear-gradient(45deg, #00b4db, #0083b0);
             color: white;
             padding: 10px 0;
             position: sticky;
             top: 0;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar .container {
@@ -34,10 +35,15 @@
         }
 
         .nav-logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: white;
             text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover {
+            color: #f0f0f0;
         }
 
         .nav-links {
@@ -55,6 +61,58 @@
         }
 
         .nav-links li a:hover {
+            background-color: #575757;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background-color: #333;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu li {
+            width: 100%;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .mobile-menu li a {
+            display: block;
+            width: 100%;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-radius: 5px;
+        }
+
+        .mobile-menu li a:hover {
             background-color: #575757;
         }
 
@@ -131,48 +189,24 @@
             line-height: 1.5;
         }
 
-        /* Media Queries for Phone Screens */
+        /* Media Queries */
         @media (max-width: 768px) {
             .nav-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                padding: 10px 0;
+                display: none;
             }
 
-            .home h1 {
-                font-size: 2.2rem;
-            }
-
-            .home p {
-                font-size: 1rem;
-            }
-
-            .about h2 {
-                font-size: 1.8rem;
-            }
-
-            .card {
-                padding: 15px;
-            }
-
-            .card h3 {
-                font-size: 1.3rem;
-            }
-
-            .card p {
-                font-size: 0.95rem;
+            .hamburger {
+                display: flex;
             }
         }
 
         @media (max-width: 480px) {
             .navbar .container {
-                flex-direction: column;
-                align-items: center;
+                justify-content: space-between;
             }
 
             .nav-logo {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
 
             .home h1 {
@@ -188,7 +222,7 @@
             }
 
             .card {
-                padding: 12px;
+                padding: 15px;
             }
 
             .card h3 {
@@ -206,6 +240,11 @@
     <nav class="navbar">
         <div class="container">
             <a href="#home" class="nav-logo">My Portfolio</a>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -213,6 +252,12 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Home Section -->
@@ -247,5 +292,15 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // JavaScript for Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active'); // Toggle the 'active' class on click
+        });
+    </script>
 </body>
 </html>
