@@ -75,10 +75,10 @@ function checkArithmeticCoercion(a, b) {
     let difference = a - b;
     let quotient = a / b;
 
-    console.log("Sum (a + b):", sum);
-    console.log("Product (a * b):", product);
-    console.log("Difference (a - b):", difference);
-    console.log("Quotient (a / b):", quotient);
+    // console.log("Sum (a + b):", sum);
+    // console.log("Product (a * b):", product);
+    // console.log("Difference (a - b):", difference);
+    // console.log("Quotient (a / b):", quotient);
 }
 
 // Example usage
