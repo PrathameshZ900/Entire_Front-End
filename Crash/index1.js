@@ -82,7 +82,7 @@ function checkArithmeticCoercion(a, b) {
 }
 
 // Example usage
-// checkArithmeticCoercion("5", 5);          // Coerces "5" to 5
+checkArithmeticCoercion("5", 5);          // Coerces "5" to 5
 checkArithmeticCoercion(true, 2);         // Coerces true to 1
 checkArithmeticCoercion(false, 10);       // Coerces false to 0
 checkArithmeticCoercion(null, 4);         // Coerces null to 0
