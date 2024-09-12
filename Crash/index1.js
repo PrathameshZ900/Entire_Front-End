@@ -100,7 +100,7 @@ function checkImplicitCoercion(value) {
 
 // Example usage
 checkImplicitCoercion("");            // Outputs: "" is falsy
-// checkImplicitCoercion("hello");       // Outputs: hello is truthy
+checkImplicitCoercion("hello");       // Outputs: hello is truthy
 checkImplicitCoercion(0);             // Outputs: 0 is falsy
 checkImplicitCoercion(42);            // Outputs: 42 is truthy
 checkImplicitCoercion(null);          // Outputs: null is falsy
