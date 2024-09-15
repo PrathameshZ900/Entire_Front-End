@@ -431,10 +431,10 @@ function demonstrateTDZ() {
   
   const { name, address: { city, zip } } = person;
   
-  console.log(name); // Outputs: Alice
-  console.log(city); // Outputs: New York
-  console.log(zip);  // Outputs: 10001
+//   console.log(name); // Outputs: Alice
+//   console.log(city); // Outputs: New York
+//   console.log(zip);  // Outputs: 10001
 
   
-  
+
 
