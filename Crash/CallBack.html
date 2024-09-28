@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+.timer {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    font-size: 48px;
+    margin: 0 0 20px;
+}
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <h1 id="display">00:00:00</h1>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
+    <script src="script.js"></script>
+
+    <script>
+
+let timer;
+let elapsedTime = 0;
+let running = false;
+
+const display = document.getElementById('display');
+const startButton = document.getElementById('start');
+const stopButton = document.getElementById('stop');
+const resetButton = document.getElementById('reset');
+
+startButton.addEventListener('click', startTimer);
+stopButton.addEventListener('click', stopTimer);
+resetButton.addEventListener('click', resetTimer);
+
+function startTimer() {
+    if (!running) {
+        running = true;
+        timer = setInterval(() => {
+            elapsedTime++;
+            display.innerText = formatTime(elapsedTime);
+        }, 1000);
+    }
+}
+
+function stopTimer() {
+    running = false;
+    clearInterval(timer);
+}
+
+function resetTimer() {
+    stopTimer();
+    elapsedTime = 0;
+    display.innerText = '00:00:00';
+}
+
+function formatTime(seconds) {
+    const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    return `${hours}:${minutes}:${secs}`;
+}
+
+
+    </script>
+</body>
+</html>
