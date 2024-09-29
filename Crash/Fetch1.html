@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal API Fetch</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #mealData {
+            margin-top: 20px;
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 2rem;
+        }
+        img {
+            border-radius: 10px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meal API Data Fetching</h1>
+    <button id="randomMealBtn">Fetch Random Meal</button>
+    <button id="mealByCategoryBtn">Fetch Meal by Category</button>
+    
+    <div id="mealData"></div>
+
+    <script > 
+        document.getElementById('randomMealBtn').addEventListener('click', fetchRandomMeal);
+        document.getElementById('mealByCategoryBtn').addEventListener('click', fetchMealByCategory);
+
+        async function fetchRandomMeal() {
+            try {
+                const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+                const data = await response.json();
+                displayMealData(data.meals[0]);
+            } catch (error) {
+                console.error('Error fetching random meal:', error);
+            }
+        }
+
+        async function fetchMealByCategory() {
+            try {
+                const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+                const data = await response.json();
+                displayMealData(data.meals[0]);
+            } catch (error) {
+                console.error('Error fetching meal by category:', error);
+            }
+        }
+
+        function displayMealData(meal) {
+            const mealDataDiv = document.getElementById('mealData');
+            mealDataDiv.innerHTML = `
+                <h2>${meal.strMeal}</h2>
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="300">
+                <p>Category: ${meal.strCategory}</p>
+                <p>Cuisine: ${meal.strArea}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
