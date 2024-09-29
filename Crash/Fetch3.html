@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMDB Movie Search</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    input {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #movieResults {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .movie-card {
+      width: 200px;
+      padding: 10px;
+      background-color: white;
+      margin: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .movie-card img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page-btn {
+      padding: 10px;
+      margin: 0 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>OMDB Movie Search</h1>
+    <input type="text" id="searchInput" placeholder="Enter movie title" />
+    <button id="searchButton">Search</button>
+
+    <div id="movieResults"></div>
+    <div id="pagination"></div>
+  </div>
+
+  <script>
+    const apiKey = 'your_omdb_api_key'; // Replace with your actual OMDB API key
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const movieResults = document.getElementById('movieResults');
+    const paginationDiv = document.getElementById('pagination');
+
+    let currentPage = 1;
+    let totalPages = 1;
+
+    searchButton.addEventListener('click', () => {
+      currentPage = 1;
+      searchMovies();
+    });
+
+    function searchMovies() {
+      const query = searchInput.value;
+      if (query === '') {
+        alert('Please enter a movie title');
+        return;
+      }
+
+      fetch(`https://www.omdbapi.com/?s=${query}&page=${currentPage}&apikey=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.Response === 'True') {
+            totalPages = Math.ceil(data.totalResults / 10);
+            displayMovies(data.Search);
+            setupPagination();
+          } else {
+            movieResults.innerHTML = `<p>No results found for "${query}".</p>`;
+          }
+        })
+        .catch(error => {
+          movieResults.innerHTML = `<p>Error fetching data. Please try again later.</p>`;
+          console.error('Error:', error);
+        });
+    }
+
+    function displayMovies(movies) {
+      movieResults.innerHTML = movies.map(movie => `
+        <div class="movie-card">
+          <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'no_image.png'}" alt="${movie.Title}" />
+          <h3>${movie.Title}</h3>
+          <p>${movie.Year}</p>
+        </div>
+      `).join('');
+    }
+
+    function setupPagination() {
+      paginationDiv.innerHTML = '';
+
+      if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.innerText = 'Previous';
+        prevButton.classList.add('page-btn');
+        prevButton.onclick = () => {
+          currentPage--;
+          searchMovies();
+        };
+        paginationDiv.appendChild(prevButton);
+      }
+
+      if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.innerText = 'Next';
+        nextButton.classList.add('page-btn');
+        nextButton.onclick = () => {
+          currentPage++;
+          searchMovies();
+        };
+        paginationDiv.appendChild(nextButton);
+      }
+    }
+  </script>
+</body>
+</html>
