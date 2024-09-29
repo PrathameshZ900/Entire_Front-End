@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Users</title>
+    
+
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: left;
+}
+
+.user-card img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Users List</h1>
+    <div id="users"></div>
+
+    <script >
+
+document.addEventListener("DOMContentLoaded", function () {
+    const usersContainer = document.getElementById('users');
+
+    // Function to fetch users
+    function fetchUsers() {
+        fetch('https://reqres.in/api/users?page=1')
+            .then(response => response.json())
+            .then(data => {
+                const users = data.data;
+                users.forEach(user => {
+                    const userCard = document.createElement('div');
+                    userCard.classList.add('user-card');
+                    userCard.innerHTML = `
+                        <img src="${user.avatar}" alt="${user.first_name}">
+                        <h2>${user.first_name} ${user.last_name}</h2>
+                        <p>Email: ${user.email}</p>
+                    `;
+                    usersContainer.appendChild(userCard);
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    }
+
+    // Call the fetch function when page loads
+    fetchUsers();
+});
+
+    </script>
+</body>
+</html>
