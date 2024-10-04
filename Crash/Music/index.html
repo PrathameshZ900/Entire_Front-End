@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Playlist Manager</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#playlist {
+    list-style-type: none;
+    padding: 0;
+}
+
+.song-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.song-item button {
+    background: red;
+    border: none;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.song-item button:hover {
+    background: darkred;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Music Playlist Manager</h1>
+
+        <div class="form-container">
+            <input type="text" id="title" placeholder="Song Title" required>
+            <input type="text" id="artist" placeholder="Artist" required>
+            <input type="text" id="duration" placeholder="Duration (min:sec)" required>
+            <input type="text" id="genre" placeholder="Genre" required>
+            <button id="addSongBtn">Add Song</button>
+        </div>
+
+        <div class="filter-container">
+            <input type="text" id="search" placeholder="Search by title or artist">
+            <select id="genreFilter">
+                <option value="">Filter by Genre</option>
+            </select>
+        </div>
+
+        <ul id="playlist"></ul>
+    </div>
+
+    <script>
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const titleInput = document.getElementById('title');
+    const artistInput = document.getElementById('artist');
+    const durationInput = document.getElementById('duration');
+    const genreInput = document.getElementById('genre');
+    const addSongBtn = document.getElementById('addSongBtn');
+    const playlistElement = document.getElementById('playlist');
+    const searchInput = document.getElementById('search');
+    const genreFilter = document.getElementById('genreFilter');
+
+    let playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+
+    function renderPlaylist() {
+        playlistElement.innerHTML = '';
+        playlist.forEach((song, index) => {
+            const songItem = document.createElement('li');
+            songItem.className = 'song-item';
+            songItem.innerHTML = `
+                <span>${song.title} - ${song.artist} (${song.duration}) [${song.genre}]</span>
+                <button onclick="deleteSong(${index})">Delete</button>
+            `;
+            playlistElement.appendChild(songItem);
+        });
+        updateGenreFilter();
+    }
+
+    function addSong() {
+        const title = titleInput.value;
+        const artist = artistInput.value;
+        const duration = durationInput.value;
+        const genre = genreInput.value;
+
+        if (title && artist && duration && genre) {
+            playlist.push({ title, artist, duration, genre });
+            localStorage.setItem('playlist', JSON.stringify(playlist));
+            renderPlaylist();
+            clearInputs();
+        }
+    }
+
+    function clearInputs() {
+        titleInput.value = '';
+        artistInput.value = '';
+        durationInput.value = '';
+        genreInput.value = '';
+    }
+
+    function deleteSong(index) {
+        playlist.splice(index, 1);
+        localStorage.setItem('playlist', JSON.stringify(playlist));
+        renderPlaylist();
+    }
+
+    function searchSongs() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredPlaylist = playlist.filter(song =>
+            song.title.toLowerCase().includes(searchTerm) || 
+            song.artist.toLowerCase().includes(searchTerm)
+        );
+        renderFilteredPlaylist(filteredPlaylist);
+    }
+
+    function renderFilteredPlaylist(filteredPlaylist) {
+        playlistElement.innerHTML = '';
+        filteredPlaylist.forEach((song, index) => {
+            const songItem = document.createElement('li');
+            songItem.className = 'song-item';
+            songItem.innerHTML = `
+                <span>${song.title} - ${song.artist} (${song.duration}) [${song.genre}]</span>
+                <button onclick="deleteSong(${index})">Delete</button>
+            `;
+            playlistElement.appendChild(songItem);
+        });
+    }
+
+    function updateGenreFilter() {
+        const genres = [...new Set(playlist.map(song => song.genre))];
+        genreFilter.innerHTML = '<option value="">Filter by Genre</option>';
+        genres.forEach(genre => {
+            const option = document.createElement('option');
+            option.value = genre;
+            option.textContent = genre;
+            genreFilter.appendChild(option);
+        });
+    }
+
+    genreFilter.addEventListener('change', () => {
+        const selectedGenre = genreFilter.value;
+        const filteredPlaylist = playlist.filter(song => song.genre === selectedGenre);
+        renderFilteredPlaylist(filteredPlaylist);
+    });
+
+    searchInput.addEventListener('input', searchSongs);
+    addSongBtn.addEventListener('click', addSong);
+    renderPlaylist();
+});
+
+
+    </script>
+</body>
+</html>
