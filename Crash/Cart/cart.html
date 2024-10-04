@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    /* Navigation Bar Styles */
+    nav {
+      background-color: #007BFF;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    nav button {
+      padding: 10px 15px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #004494;
+    }
+
+    /* Main Content Styles */
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    #cart-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .user-card {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .user-card:hover {
+      transform: scale(1.02);
+    }
+
+    .user-card img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .user-card h2 {
+      font-size: 1.2em;
+      margin: 10px 0;
+      color: #007BFF;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #clear-cart {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #dc3545;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #clear-cart:hover {
+      background-color: #c82333;
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Your Cart</h1>
+    <button onclick="window.location.href='index.html'">Go to User Info</button>
+  </nav>
+
+  <h1>Your Cart</h1>
+  <div id="cart-container"></div>
+  <button id="clear-cart" onclick="clearCart()">Clear Cart</button>
+  
+  <script>
+    // Display cart items from localStorage
+    function displayCart() {
+      const cartContainer = document.getElementById('cart-container');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      cartContainer.innerHTML = '';
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p style="text-align: center;">Your cart is empty.</p>';
+        return;
+      }
+
+      cart.forEach(user => {
+        const item = document.createElement('div');
+        item.classList.add('user-card');
+        
+        item.innerHTML = `
+          <img src="${user.avatar}" alt="${user.name}">
+          <h2>${user.name}</h2>
+          <button onclick="removeFromCart(${user.id})">Remove</button>
+        `;
+        cartContainer.appendChild(item);
+      });
+    }
+
+    // Remove user from cart
+    function removeFromCart(userId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== userId);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      displayCart();
+    }
+
+    // Clear cart
+    function clearCart() {
+      localStorage.removeItem('cart');
+      displayCart();
+    }
+
+    displayCart();
+  </script>
+</body>
+</html>

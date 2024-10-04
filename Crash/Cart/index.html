@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Card Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    /* Navigation Bar Styles */
+    nav {
+      background-color: #007BFF;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav h1 {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    nav button {
+      padding: 10px 15px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #004494;
+    }
+
+    /* Main Content Styles */
+    #user-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .user-card {
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .user-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-card img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 10px;
+      border: 2px solid #007BFF;
+    }
+
+    .user-card h2 {
+      font-size: 1.2em;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>User Card Management</h1>
+    <button onclick="window.location.href='cart.html'">Go to Cart</button>
+  </nav>
+  
+  <div id="user-cards-container"></div>
+  
+  <script>
+    // Sample array of user objects
+    let users = [
+      {
+        id: 1,
+        name: "Leanne Graham",
+        avatar: "https://via.placeholder.com/100",
+        email: "Sincere@april.biz",
+      },
+      {
+        id: 2,
+        name: "Ervin Howell",
+        avatar: "https://via.placeholder.com/100",
+        email: "Shanna@melissa.tv",
+      },
+      {
+        id: 3,
+        name: "Clementine Bauch",
+        avatar: "https://via.placeholder.com/100",
+        email: "Nathan@yesenia.net",
+      },
+      {
+        id: 4,
+        name: "Patricia Lebsack",
+        avatar: "https://via.placeholder.com/100",
+        email: "Julianne.OConner@kory.org",
+      },
+      {
+        id: 5,
+        name: "Chelsey Dietrich",
+        avatar: "https://via.placeholder.com/100",
+        email: "Lucio_Hettinger@annie.ca",
+      },
+      {
+        id: 6,
+        name: "Mrs. Dennis Schulist",
+        avatar: "https://via.placeholder.com/100",
+        email: "Karley_Dach@jasper.info",
+      },
+      {
+        id: 7,
+        name: "Kurtis Weissnat",
+        avatar: "https://via.placeholder.com/100",
+        email: "Telly.Hoeger@billy.biz",
+      },
+      {
+        id: 8,
+        name: "Nicholas Runolfsdottir V",
+        avatar: "https://via.placeholder.com/100",
+        email: "Sherwood@rosamond.me",
+      },
+      {
+        id: 9,
+        name: "Glenna Reichert",
+        avatar: "https://via.placeholder.com/100",
+        email: "Chaim_McDermott@dana.io",
+      },
+      {
+        id: 10,
+        name: "Clementina DuBuque",
+        avatar: "https://via.placeholder.com/100",
+        email: "Rey.Padberg@karina.biz",
+      },
+    ];
+
+    const userContainer = document.getElementById('user-cards-container');
+
+    // Display user cards
+    function displayUserCards() {
+      userContainer.innerHTML = '';
+      users.forEach(user => {
+        const card = document.createElement('div');
+        card.classList.add('user-card');
+        
+        card.innerHTML = `
+          <img src="${user.avatar}" alt="${user.name}">
+          <h2>${user.name}</h2>
+          <p>${user.email}</p>
+          <button onclick="addToCart(${user.id})">Add to Cart</button>
+          <button onclick="deleteUser(${user.id})">Delete</button>
+        `;
+        userContainer.appendChild(card);
+      });
+    }
+
+    // Add user to local storage
+    function addToCart(userId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const user = users.find(u => u.id === userId);
+      if (!cart.some(item => item.id === userId)) {
+        cart.push(user);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${user.name} added to cart!`);
+      } else {
+        alert(`${user.name} is already in the cart.`);
+      }
+    }
+
+    // Delete user
+    function deleteUser(userId) {
+      const index = users.findIndex(u => u.id === userId);
+      if (index > -1) {
+        users.splice(index, 1);
+        displayUserCards();
+      }
+    }
+
+    displayUserCards();
+  </script>
+</body>
+</html>
