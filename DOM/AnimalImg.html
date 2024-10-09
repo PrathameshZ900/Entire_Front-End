@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Image Selector</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dropdown menu styles */
+        select {
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #74ebd5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background-color: #fff;
+        }
+
+        /* Dropdown hover effect */
+        select:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Dropdown focus effect */
+        select:focus {
+            border-color: #ACB6E5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image styling */
+        img {
+            margin-top: 20px;
+            width: 300px;
+            height: 400px; /* Fixed height */
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Image hover effect */
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            img {
+                width: 100%; /* Ensure full width on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Select an Animal</h1>
+        
+        <!-- Dropdown menu for animal selection -->
+        <select id="animal-select">
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="elephant">Elephant</option>
+            <option value="lion">Lion</option>
+        </select>
+        
+        <!-- Image tag to display selected animal -->
+        <img id="animal-image" src="https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg" alt="Selected Animal">
+    </div>
+
+    <script>
+        const Imgarr = {
+            dog: "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg",
+            cat: "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg",
+            elephant: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy33k3H3n3U7FyPPxjjbwmnbQzFSkD7F73w&s",
+            lion: "https://cdn.pixabay.com/photo/2022/08/13/09/05/lion-7383228_640.jpg"
+        };
+
+        // Get references to the dropdown and image elements
+        const animalSelect = document.getElementById('animal-select');
+        const animalImage = document.getElementById('animal-image');
+
+        // Listen for changes in the dropdown
+        animalSelect.addEventListener('change', function() {
+            const selectedAnimal = this.value;
+            animalImage.src = Imgarr[selectedAnimal];  // Update image source based on selection
+            animalImage.alt = selectedAnimal;  // Update alt text
+        });
+    </script>
+
+</body>
+</html>
