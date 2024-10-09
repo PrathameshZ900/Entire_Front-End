@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page</title>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filters select {
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border 0.3s;
+}
+
+.filters select:hover {
+    border-color: #888;
+}
+
+#products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Spacing between cards */
+}
+
+.product-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 250px; /* Fixed width for all cards */
+    height: 380px; /* Fixed height for all cards */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden; /* Hide overflow */
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 200px; /* Fixed height for images */
+    object-fit: cover; /* Ensures images cover the area without distortion */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    text-align: center;
+    color: #333;
+}
+
+.product-card p {
+    font-size: 14px;
+    text-align: center;
+    color: #555;
+    flex-grow: 1; /* Allows the description to grow */
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745; /* Green color for price */
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="filter-container">
+        <select id="filterByCategory">
+            <option value="">Choose by category</option>
+            <option value="men's clothing">men's clothing</option>
+            <option value="women's clothing">women's clothing</option>
+            <option value="jewelery">jewelery</option>
+            <option value="electronics">electronics</option>
+        </select>
+    
+        <select id="sortByPrice">
+            <option value="">Sort by price</option>
+            <option value="price-high-to-low">High to low</option>
+            <option value="price-low-to-high">Low to high</option>
+        </select>
+    </div>
+
+    <div id="products-container" class="products-container"></div>
+
+    <script>
+        let products = [
+            {
+                id: 1,
+                title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+                price: 109.95,
+                description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday.",
+                category: "men's clothing",
+                image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+                rating: {
+                    rate: 3.9,
+                    count: 120
+                }
+            },
+            {
+                id: 2,
+                title: "Mens Casual Premium Slim Fit T-Shirts",
+                price: 22.3,
+                description: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, lightweight & soft fabric for breathable and comfortable wearing.",
+                category: "men's clothing",
+                image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+                rating: {
+                    rate: 4.1,
+                    count: 259
+                }
+            },
+            {
+                id: 3,
+                title: "Mens Cotton Jacket",
+                price: 55.99,
+                description: "Great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions.",
+                category: "men's clothing",
+                image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+                rating: {
+                    rate: 4.7,
+                    count: 500
+                }
+            },
+            {
+                id: 4,
+                title: "Mens Casual Slim Fit",
+                price: 15.99,
+                description: "The color could be slightly different between on the screen and in practice.",
+                category: "men's clothing",
+                image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+                rating: {
+                    rate: 2.1,
+                    count: 430
+                }
+            },
+            {
+                id: 5,
+                title: "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+                price: 695,
+                description: "From our Legends Collection, inspired by the mythical water dragon that protects the ocean's pearl.",
+                category: "jewelery",
+                image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+                rating: {
+                    rate: 4.6,
+                    count: 400
+                }
+            },
+            {
+                id: 6,
+                title: "Solid Gold Petite Micropave",
+                price: 168,
+                description: "Satisfaction Guaranteed. Return or exchange any order within 30 days.",
+                category: "jewelery",
+                image: "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
+                rating: {
+                    rate: 3.9,
+                    count: 70
+                }
+            },
+            {
+                id: 7,
+                title: "White Gold Plated Princess",
+                price: 9.99,
+                description: "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her.",
+                category: "jewelery",
+                image: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+                rating: {
+                    rate: 3,
+                    count: 400
+                }
+            },
+            {
+                id: 8,
+                title: "Pierced Owl Rose Gold Plated Stainless Steel Double",
+                price: 10.99,
+                description: "Rose Gold Plated Double Flared Tunnel Plug Earrings.",
+                category: "jewelery",
+                image: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+                rating: {
+                    rate: 1.9,
+                    count: 100
+                }
+            },
+            {
+                id: 9,
+                title: "WD 2TB Elements Portable External Hard Drive - USB 3.0",
+                price: 64,
+                description: "USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+                rating: {
+                    rate: 3.3,
+                    count: 203
+                }
+            },
+            {
+                id: 10,
+                title: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
+                price: 109,
+                description: "Easy upgrade for faster boot up, shutdown, application load and response.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
+                rating: {
+                    rate: 2.9,
+                    count: 470
+                }
+            },
+            {
+                id: 11,
+                title: "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
+                price: 109,
+                description: "3D NAND flash applied to deliver high transfer speeds.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg",
+                rating: {
+                    rate: 4.8,
+                    count: 319
+                }
+            },
+            {
+                id: 12,
+                title: "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
+                price: 114,
+                description: "Expand your PS4 gaming experience.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
+                rating: {
+                    rate: 4.8,
+                    count: 400
+                }
+            },
+            {
+                id: 13,
+                title: "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
+                price: 599,
+                description: "21.5 inches Full HD widescreen IPS display.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
+                rating: {
+                    rate: 2.9,
+                    count: 250
+                }
+            },
+            {
+                id: 14,
+                title: "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA)",
+                price: 999.99,
+                description: "49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR.",
+                category: "electronics",
+                image: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
+                rating: {
+                    rate: 2.2,
+                    count: 140
+                }
+            },
+            {
+                id: 15,
+                title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
+                price: 56.99,
+                description: "Waterproof, windproof, and snowproof jacket for winter sports.",
+                category: "women's clothing",
+                image: "https://fakestoreapi.com/img/51Y3B6B3+WL._AC_SX679_.jpg",
+                rating: {
+                    rate: 3.6,
+                    count: 400
+                }
+            },
+            {
+                id: 16,
+                title: "V-Neck Long Sleeve Bodysuits",
+                price: 18.95,
+                description: "Fitted bodysuits with a v-neckline.",
+                category: "women's clothing",
+                image: "https://fakestoreapi.com/img/41Y1LHYzPHL._AC_SY879._SX._UX._SY._UY_.jpg",
+                rating: {
+                    rate: 4.2,
+                    count: 250
+                }
+            },
+            {
+                id: 17,
+                title: "Shirt Dress",
+                price: 32.99,
+                description: "Versatile shirt dress for casual or formal occasions.",
+                category: "women's clothing",
+                image: "https://fakestoreapi.com/img/81t2s60mXUL._AC_SX679_.jpg",
+                rating: {
+                    rate: 4.1,
+                    count: 450
+                }
+            },
+            {
+                id: 18,
+                title: "Fancy Women's Handbag",
+                price: 55,
+                description: "Stylish handbag suitable for various occasions.",
+                category: "women's clothing",
+                image: "https://fakestoreapi.com/img/81I6m22kYFL._AC_SX679_.jpg",
+                rating: {
+                    rate: 3.5,
+                    count: 150
+                }
+            },
+        ];
+
+        function displayProducts(filteredProducts) {
+            const productsContainer = document.getElementById('products-container');
+            productsContainer.innerHTML = '';
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img class="product-image" src="${product.image}" alt="${product.title}">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>Category: ${product.category}</p>
+                    <p>Rating: ${product.rating.rate} (${product.rating.count} reviews)</p>
+                `;
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        function filterAndSortProducts() {
+            const selectedCategory = document.getElementById('filterByCategory').value;
+            const selectedSort = document.getElementById('sortByPrice').value;
+
+            let filteredProducts = products;
+
+            if (selectedCategory) {
+                filteredProducts = filteredProducts.filter(product => product.category === selectedCategory);
+            }
+
+            if (selectedSort === 'price-high-to-low') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (selectedSort === 'price-low-to-high') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            }
+
+            displayProducts(filteredProducts);
+        }
+
+        document.getElementById('filterByCategory').addEventListener('change', filterAndSortProducts);
+        document.getElementById('sortByPrice').addEventListener('change', filterAndSortProducts);
+
+        // Initial display of all products
+        displayProducts(products);
+    </script>
+
+</body>
+</html>
