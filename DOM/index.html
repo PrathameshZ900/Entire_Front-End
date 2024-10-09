@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analyzer Tool</title>
+    <style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1;
+    margin: 0 5px; /* Space between buttons */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.results {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+h3 {
+    margin: 0 0 10px 0;
+}
+
+#result-output {
+    color: #555;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Text Analyzer Tool</h2>
+        <textarea id="text-input" placeholder="Type or paste your text here..." rows="8"></textarea>
+        <div class="buttons">
+            <button id="count-words" class="btn">Count Words</button>
+            <button id="to-uppercase" class="btn">To Uppercase</button>
+            <button id="to-lowercase" class="btn">To Lowercase</button>
+            <button id="check-substring" class="btn">Check Substring</button>
+        </div>
+        <div class="results">
+            <h3>Results:</h3>
+            <p id="result-output">Please enter some text and use the buttons above to analyze.</p>
+        </div>
+    </div>
+    <script>
+
+
+// script.js
+
+// Select elements
+const textInput = document.getElementById('text-input');
+const resultOutput = document.getElementById('result-output');
+
+// Function to count words
+const countWords = () => {
+    const text = textInput.value.trim();
+    const wordCount = text ? text.split(/\s+/).length : 0;
+    resultOutput.textContent = `Word Count: ${wordCount}`;
+};
+
+// Function to convert text to uppercase
+const toUpperCase = () => {
+    resultOutput.textContent = textInput.value.toUpperCase();
+};
+
+// Function to convert text to lowercase
+const toLowerCase = () => {
+    resultOutput.textContent = textInput.value.toLowerCase();
+};
+
+// Function to check for a substring
+const checkSubstring = () => {
+    const substring = prompt("Enter the substring to check:");
+    if (substring) {
+        const contains = textInput.value.includes(substring);
+        resultOutput.textContent = contains ? `The text contains "${substring}".` : `The text does not contain "${substring}".`;
+    }
+};
+
+// Event listeners
+document.getElementById('count-words').addEventListener('click', countWords);
+document.getElementById('to-uppercase').addEventListener('click', toUpperCase);
+document.getElementById('to-lowercase').addEventListener('click', toLowerCase);
+document.getElementById('check-substring').addEventListener('click', checkSubstring);
+
+
+    </script>
+</body>
+</html>
