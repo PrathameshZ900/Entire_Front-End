@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Graph</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      margin: 20px;  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .input-card {
+      background-color: #ffffff;
+      padding: 20px;
+      
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    .input-card h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .input-group input {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 100%;
+      transition: all 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #ff7e5f;
+      outline: none;
+      box-shadow: 0 0 8px rgba(255,126,95,0.2);
+    }
+
+    button {
+      background-color: #ff7e5f;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #feb47b;
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: none;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    .controls button {
+      width: 48%;
+    }
+
+    .graph-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .bar-container {
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .bar-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .product-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .product-price, .product-rating {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .bar {
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      height: 30px;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Input Form -->
+    <div class="input-card">
+      <h2>Enter Product Details</h2>
+      <div class="input-group">
+        <input type="text" id="product-name" placeholder="Product Name">
+        <input type="number" id="product-price" placeholder="Price" min="0">
+        <input type="number" id="product-rating" placeholder="Rating (0-5)" min="0" max="5">
+      </div>
+      <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <!-- Sorting Controls -->
+    <div class="controls">
+      <button onclick="sortByPrice()">Sort by Price</button>
+      <button onclick="sortByRating()">Sort by Rating</button>
+    </div>
+
+    <!-- Graph Display -->
+    <div class="graph-container" id="graph-container">
+      <!-- Product bars will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script>
+    let products = [];
+    const graphContainer = document.getElementById('graph-container');
+
+    function addProduct() {
+      const productName = document.getElementById('product-name').value;
+      const productPrice = document.getElementById('product-price').value;
+      const productRating = document.getElementById('product-rating').value;
+
+      if (productName && productPrice && productRating) {
+        // Create product object and add to products array
+        const product = {
+          name: productName,
+          price: parseFloat(productPrice),
+          rating: parseFloat(productRating),
+        };
+        products.push(product);
+
+        // Update the graph
+        updateGraph();
+      } else {
+        alert('Please fill out all fields!');
+      }
+
+      // Clear input fields
+      document.getElementById('product-name').value = '';
+      document.getElementById('product-price').value = '';
+      document.getElementById('product-rating').value = '';
+    }
+
+    function updateGraph() {
+      // Clear the existing graph
+      graphContainer.innerHTML = '';
+
+      // Iterate over the products array and add each product to the graph
+      products.forEach(product => {
+        // Create bar container
+        const barContainer = document.createElement('div');
+        barContainer.classList.add('bar-container');
+
+        // Product info: name, price, rating
+        const productInfo = document.createElement('div');
+        productInfo.classList.add('product-info');
+
+        const nameElement = document.createElement('div');
+        nameElement.classList.add('product-name');
+        nameElement.textContent = product.name;
+
+        const priceElement = document.createElement('div');
+        priceElement.classList.add('product-price');
+        priceElement.textContent = `Price: $${product.price}`;
+
+        const ratingElement = document.createElement('div');
+        ratingElement.classList.add('product-rating');
+        ratingElement.textContent = `Rating: ${product.rating}/5`;
+
+        // Append name, price, rating to info container
+        productInfo.appendChild(nameElement);
+        productInfo.appendChild(priceElement);
+        productInfo.appendChild(ratingElement);
+
+        // Create bar element
+        const barElement = document.createElement('div');
+        barElement.classList.add('bar');
+        barElement.style.width = '0%'; // Initial width (before animation)
+
+        // Append product info and bar to container
+        barContainer.appendChild(productInfo);
+        barContainer.appendChild(barElement);
+
+        // Append bar container to graph container
+        graphContainer.appendChild(barContainer);
+
+        // Animate the bar growth
+        setTimeout(() => {
+          const barWidth = Math.min(product.price * 2, 100); // Normalize width for large prices
+          barElement.style.width = `${barWidth}%`;
+        }, 100);
+      });
+    }
+
+    // Sorting Functions
+    function sortByPrice() {
+      products.sort((a, b) => a.price - b.price);
+      updateGraph();
+    }
+
+    function sortByRating() {
+      products.sort((a, b) => b.rating - a.rating);
+      updateGraph();
+    }
+  </script>
+
+</body>
+</html>
