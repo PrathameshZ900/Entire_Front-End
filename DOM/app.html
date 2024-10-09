@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management App</title>
+    <style>
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select, button {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button.edit {
+    background-color: #007BFF;
+    color: white;
+}
+
+button.delete {
+    background-color: #FF5733;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Management App</h1>
+        <form id="task-form">
+            <input type="text" id="task-title" placeholder="Task Title" required>
+            <textarea id="task-description" placeholder="Task Description" required></textarea>
+            <select id="task-status">
+                <option value="incomplete">Incomplete</option>
+                <option value="complete">Complete</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+        
+        <div class="filter-section">
+            <button data-status="all">All</button>
+            <button data-status="complete">Complete</button>
+            <button data-status="incomplete">Incomplete</button>
+        </div>
+        
+        <ul id="task-list"></ul>
+    </div>
+
+    <script >
+
+// Selecting necessary elements
+const taskForm = document.getElementById('task-form');
+const taskList = document.getElementById('task-list');
+const taskTitle = document.getElementById('task-title');
+const taskDescription = document.getElementById('task-description');
+const taskStatus = document.getElementById('task-status');
+const filterButtons = document.querySelectorAll('.filter-section button');
+
+// Array to hold tasks
+let tasks = [];
+
+// Function to render tasks to the DOM
+function renderTasks(filter = 'all') {
+    taskList.innerHTML = '';
+    const filteredTasks = filter === 'all' ? tasks : tasks.filter(task => task.status === filter);
+    filteredTasks.forEach(task => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div>
+                <strong>${task.title}</strong>
+                <p>${task.description}</p>
+                <em>${task.status}</em>
+            </div>
+            <div>
+                <button class="edit" data-id="${task.id}">Edit</button>
+                <button class="delete" data-id="${task.id}">Delete</button>
+            </div>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+// Function to add a new task
+function addTask(e) {
+    e.preventDefault();
+    const newTask = {
+        id: Date.now(),
+        title: taskTitle.value,
+        description: taskDescription.value,
+        status: taskStatus.value
+    };
+    tasks.push(newTask);
+    renderTasks();
+    taskForm.reset();
+}
+
+// Function to delete a task
+function deleteTask(id) {
+    tasks = tasks.filter(task => task.id !== id);
+    renderTasks();
+}
+
+// Function to edit a task
+function editTask(id) {
+    const task = tasks.find(task => task.id === id);
+    taskTitle.value = task.title;
+    taskDescription.value = task.description;
+    taskStatus.value = task.status;
+    deleteTask(id);
+}
+
+// Event listener for form submission
+taskForm.addEventListener('submit', addTask);
+
+// Event listener for task list
+taskList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) {
+        const id = parseInt(e.target.dataset.id);
+        deleteTask(id);
+    }
+    if (e.target.classList.contains('edit')) {
+        const id = parseInt(e.target.dataset.id);
+        editTask(id);
+    }
+});
+
+// Event listener for filters
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const status = button.dataset.status;
+        renderTasks(status);
+    });
+});
+
+
+    </script>
+</body>
+</html>
