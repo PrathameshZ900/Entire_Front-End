@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        // Define the main component
+        const ReactFragmentExample = () => {
+            // Event handler for the button click
+            const handleClick = () => {
+                alert('Button was clicked!');
+            };
+
+            return (
+                // Use React Fragments to group elements without adding extra nodes to the DOM
+                <>
+                    <h1>React Fragments and Event Handling</h1>
+                    <h2>Problem:</h2>
+                    <p>
+                        In this assignment, you will create a React component that demonstrates your understanding of React Fragments, JSX syntax, classNames in react, and event handling.
+                    </p>
+                    <p>
+                        This task will help you grasp how React components are structured and how they interact with user events. You will use JSX to create a simple UI consisting of text and a button that triggers an alert.
+                    </p>
+                    <h2>Solution:</h2>
+                    <p>Click the button below to trigger an alert:</p>
+                    <button onClick={handleClick} className="alert-button">
+                        Click Me!
+                    </button>
+                </>
+            );
+        };
+
+        // Render the component to the DOM
+        ReactDOM.render(<ReactFragmentExample />, document.getElementById('root'));
+    </script>
+</body>
+</html>
