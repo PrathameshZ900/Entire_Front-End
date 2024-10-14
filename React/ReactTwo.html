@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+    <style>        p{
+        text-align: center;
+        justify-content: center;
+        font-size: 50px;
+        font-weight: bolder;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    }</style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        // script.js
+
+        // Dynamic content: A name and the current date
+        const userName = "Prathamesh";
+        const currentDate = new Date().toLocaleDateString();
+
+        // Create a React element with dynamic content using JSX
+        const element = (
+        <div>
+            <h1>Welcome, {userName}!</h1>
+            <p>Today is {currentDate}. Seize the day!</p>
+        </div>
+        );
+
+        // Render the element into the #root div
+        ReactDOM.render(
+        element,
+        document.getElementById('root')
+        );
+
+
+        // function Greeting(props) {
+        //     const isLoggedIn = props.isLoggedIn;
+
+        //     return (
+        //         <div>
+        //         {isLoggedIn ? <h1>Welcome back!</h1> : <h1>Please sign in.</h1>}
+        //         </div>
+        //     );
+        //     }
+
+        //     // Rendering conditionally
+        //     ReactDOM.render(
+        //     <Greeting isLoggedIn={true} />,
+        //     document.getElementById('root')
+        //     );
+
+
+    </script>
+  </body>
+</html>
