@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Template</title>
+    <style>
+        p{
+            text-align: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bolder;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your task starts here
+
+
+    // Create a React element (a <p> tag with text)
+    const element = React.createElement(
+    'p',      // The type of the element (HTML tag)
+    null,     // Props (we're not passing any props here)
+    'Seize the day' // The children (text content)
+    );
+
+    // Render the element into the #root div
+    ReactDOM.render(
+    element,
+    document.getElementById('root') // The container to render into
+    );
+
+
+
+  </script>
+</html>
