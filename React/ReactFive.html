@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+    <style>
+      .app-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+      }
+
+      .cart-page {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .cart-items {
+        flex: 3;
+        margin-right: 20px;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .cart-item-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 20px;
+        border-radius: 10px;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .price {
+        color: #555;
+        margin-top: 5px;
+        font-size: 1.2rem;
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .quantity-control button {
+        padding: 5px 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .quantity-control button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+      }
+
+      .quantity-control span {
+        margin: 0 10px;
+      }
+
+      .remove-button {
+        padding: 5px 10px;
+        background-color: #ff4040;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .remove-button:hover {
+        background-color: #ff2020;
+      }
+
+      .cart-summary {
+        flex: 1;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f8f8f8;
+      }
+
+      .summary-details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .checkout-button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .checkout-button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useState } = React; // Destructuring React to use useState
+
+      const App = () => {
+        const [cartItems, setCartItems] = useState([
+          { id: 1, name: 'Product 1', price: 49.99, quantity: 1, image: 'https://via.placeholder.com/100' },
+          { id: 2, name: 'Product 2', price: 89.99, quantity: 2, image: 'https://via.placeholder.com/100' },
+          { id: 3, name: 'Product 3', price: 19.99, quantity: 1, image: 'https://via.placeholder.com/100' },
+        ]);
+
+        const updateQuantity = (id, newQuantity) => {
+          setCartItems(
+            cartItems.map(item =>
+              item.id === id ? { ...item, quantity: newQuantity } : item
+            )
+          );
+        };
+
+        const removeItem = (id) => {
+          setCartItems(cartItems.filter(item => item.id !== id));
+        };
+
+        const calculateTotal = () => {
+          return cartItems
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2);
+        };
+
+        return (
+          <div className="app-container">
+            <h1 className="title">Your Shopping Cart</h1>
+
+            <div className="cart-page">
+              <div className="cart-items">
+                {cartItems.length > 0 ? (
+                  cartItems.map(item => (
+                    <div className="cart-item" key={item.id}>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="cart-item-image"
+                      />
+                      <div className="cart-item-details">
+                        <h3>{item.name}</h3>
+                        <p className="price">${item.price}</p>
+                        <div className="quantity-control">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            disabled={item.quantity <= 1}
+                          >
+                            -
+                          </button>
+                          <span>{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <button className="remove-button" onClick={() => removeItem(item.id)}>
+                        Remove
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>Your cart is empty!</p>
+                )}
+              </div>
+
+              <div className="cart-summary">
+                <h2>Summary</h2>
+                <div className="summary-details">
+                  <p>
+                    Total: <span>${calculateTotal()}</span>
+                  </p>
+                </div>
+                <button className="checkout-button">Proceed to Checkout</button>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
