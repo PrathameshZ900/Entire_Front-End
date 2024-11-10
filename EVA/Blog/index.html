@@ -3,9 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Post</title>
+    <title>Blog Post Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #app {
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+        #posts {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post:hover {
+            background-color: #f9f9f9;
+        }
+
+        #pagination {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        select, input {
+            padding: 5px;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>hi blog</h1>
+    <div id="app">
+        <h1>Blog Post Viewer</h1>
+        <div id="controls">
+            <select id="userFilter">
+                <option value="">Filter by User</option>
+            </select>
+            <input type="text" id="search" placeholder="Search by title or content">
+            <select id="sortOrder">
+                <option value="asc">Sort Ascending</option>
+                <option value="desc">Sort Descending</option>
+            </select>
+        </div>
+        <div id="posts"></div>
+        
+        <div id="pagination">
+            <button id="prevPage">Previous</button>
+            <span id="pageInfo">Page 1</span>
+            <button id="nextPage">Next</button>
+        </div>
+    </div>
+    <script>
+        let posts = [];
+        let filteredPosts = [];
+        let currentPage = 1;
+        const postsPerPage = 5;
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await loadSamplePosts();
+            await fetchUsers();
+            await fetchPosts();
+            renderPosts();
+        });
+
+        // Sample posts for fallback
+        async function loadSamplePosts() {
+            posts = [
+                { id: 1, userId: 1, title: "Sample Post 1", body: "This is the body of sample post 1." },
+                { id: 2, userId: 1, title: "Sample Post 2", body: "This is the body of sample post 2." },
+                { id: 3, userId: 2, title: "Learning JavaScript", body: "JavaScript is a versatile language used in web development." },
+                { id: 4, userId: 2, title: "CSS Tricks", body: "CSS helps in styling the web pages beautifully." },
+                { id: 5, userId: 3, title: "HTML Basics", body: "HTML is the standard markup language for creating web pages." },
+                { id: 6, userId: 4, title: "Web Development", body: "Web development involves both frontend and backend development." },
+                { id: 7, userId: 5, title: "ReactJS Guide", body: "ReactJS is a JavaScript library for building user interfaces." },
+                { id: 8, userId: 3, title: "Vue.js Essentials", body: "Vue.js is an open-source model–view–viewmodel JavaScript framework." },
+                { id: 9, userId: 4, title: "Advanced CSS", body: "Learn advanced CSS techniques to make your site look great." },
+                { id: 10, userId: 5, title: "Node.js Introduction", body: "Node.js allows JavaScript to be used for backend development." },
+                { id: 11, userId: 6, title: "Express.js Basics", body: "Express.js is a web application framework for Node.js." },
+                { id: 12, userId: 6, title: "MongoDB Overview", body: "MongoDB is a popular NoSQL database for modern web applications." }
+            ];
+            filteredPosts = [...posts];
+        }
+
+        async function fetchUsers() {
+            const res = await fetch("https://jsonplaceholder.typicode.com/users");
+            const users = await res.json();
+            const userFilter = document.getElementById("userFilter");
+
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.textContent = user.name;
+                userFilter.appendChild(option);
+            });
+        }
+
+        async function fetchPosts() {
+            const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+            const fetchedPosts = await res.json();
+            posts = fetchedPosts.length ? fetchedPosts : posts;
+            filteredPosts = [...posts];
+        }
+
+        function renderPosts() {
+            const postsContainer = document.getElementById("posts");
+            postsContainer.innerHTML = "";
+
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+            paginatedPosts.forEach(post => {
+                const postElement = document.createElement("div");
+                postElement.className = "post";
+                postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
+                postElement.addEventListener("click", () => viewPostDetails(post.id));
+                postsContainer.appendChild(postElement);
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        document.getElementById("prevPage").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPosts();
+            }
+        });
+
+        document.getElementById("nextPage").addEventListener("click", () => {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPosts();
+            }
+        });
+
+        document.getElementById("userFilter").addEventListener("change", (event) => {
+            const userId = event.target.value;
+            filteredPosts = userId ? posts.filter(post => post.userId === parseInt(userId)) : [...posts];
+            currentPage = 1;
+            renderPosts();
+        });
+
+        document.getElementById("sortOrder").addEventListener("change", (event) => {
+            const order = event.target.value;
+            filteredPosts.sort((a, b) => order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+            currentPage = 1;
+            renderPosts();
+        });
+
+        document.getElementById("search").addEventListener("input", (event) => {
+            const query = event.target.value.toLowerCase();
+            filteredPosts = posts.filter(post => 
+                post.title.toLowerCase().includes(query) || post.body.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderPosts();
+        });
+
+
+
+    </script>
 </body>
 </html>
