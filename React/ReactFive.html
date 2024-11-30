@@ -2,120 +2,204 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>JSX and Babel</title>
+    <title>Product Page</title>
     <style>
-      .app-container {
-        padding: 20px;
-        max-width: 1200px;
-        margin: auto;
-      }
+      /* General Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-      .title {
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 2.5rem;
-      }
+/* Product Info Card */
+#Product-Info {
+  background-color: #ffffff;
+  max-width: 700px;
+  padding: 25px;
+  margin: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
 
-      .cart-page {
-        display: flex;
-        justify-content: space-between;
-      }
+#Product-Info img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-      .cart-items {
-        flex: 3;
-        margin-right: 20px;
-      }
+#Product-Info img:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
 
-      .cart-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-      }
+h1 {
+  color: #ff5e57;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
 
-      .cart-item-image {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        margin-right: 20px;
-        border-radius: 10px;
-      }
+h3 {
+  font-size: 20px;
+  color: #222;
+  margin-bottom: 8px;
+}
 
-      .cart-item-details {
-        flex: 1;
-      }
+h4 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
 
-      .price {
-        color: #555;
-        margin-top: 5px;
-        font-size: 1.2rem;
-      }
+p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
 
-      .quantity-control {
-        display: flex;
-        align-items: center;
-        margin-top: 10px;
-      }
+button {
+  padding: 12px 24px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
 
-      .quantity-control button {
-        padding: 5px 10px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-      }
+button:hover {
+  background: linear-gradient(to right, #ff6a47, #ffa374);
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-      .quantity-control button:disabled {
-        background-color: #ddd;
-        cursor: not-allowed;
-      }
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
 
-      .quantity-control span {
-        margin: 0 10px;
-      }
+/* Delivery Icon */
+#Product-Info img[alt="Delivery Truck"] {
+  width: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-top: 15px;
+}
 
-      .remove-button {
-        padding: 5px 10px;
-        background-color: #ff4040;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+/* Flex Container for Features and Product Details */
+#inforPro {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 30px;
+}
 
-      .remove-button:hover {
-        background-color: #ff2020;
-      }
+#features,
+#ProDetail {
+  flex: 1;
+  padding: 20px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1.2s ease-in-out;
+}
 
-      .cart-summary {
-        flex: 1;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background-color: #f8f8f8;
-      }
+#features ul {
+  list-style: disc;
+  padding-left: 25px;
+  color: #555;
+}
 
-      .summary-details {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
+#features ul li {
+  margin-bottom: 8px;
+  text-align: left;
+  font-size: 15px;
+  list-style: disc;
+}
+#features ul li::marker {
+  color: #ff5e57; /* Marker (bullet) color */
+}
 
-      .checkout-button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+#features h2,
+#ProDetail p {
+  color: #333;
+  margin-bottom: 12px;
+  text-align: left;
+}
 
-      .checkout-button:hover {
-        background-color: #45a049;
-      }
+#ProDetail h2{
+ text-align: left;
+}
+
+/* Product Details */
+#ProDetail p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+#ProDetail p b {
+  color: #ff5e57;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Effects */
+#features:hover,
+#ProDetail:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #inforPro {
+    flex-direction: column;
+  }
+  #Product-Info {
+    padding: 20px;
+  }
+  button {
+    font-size: 14px;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -124,90 +208,72 @@
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-      const { useState } = React; // Destructuring React to use useState
+      const { Fragment } = React;
 
-      const App = () => {
-        const [cartItems, setCartItems] = useState([
-          { id: 1, name: 'Product 1', price: 49.99, quantity: 1, image: 'https://via.placeholder.com/100' },
-          { id: 2, name: 'Product 2', price: 89.99, quantity: 2, image: 'https://via.placeholder.com/100' },
-          { id: 3, name: 'Product 3', price: 19.99, quantity: 1, image: 'https://via.placeholder.com/100' },
-        ]);
-
-        const updateQuantity = (id, newQuantity) => {
-          setCartItems(
-            cartItems.map(item =>
-              item.id === id ? { ...item, quantity: newQuantity } : item
-            )
-          );
-        };
-
-        const removeItem = (id) => {
-          setCartItems(cartItems.filter(item => item.id !== id));
-        };
-
-        const calculateTotal = () => {
-          return cartItems
-            .reduce((acc, item) => acc + item.price * item.quantity, 0)
-            .toFixed(2);
+      function Product() {
+        const handleClick = () => {
+          alert("Product added to cart!");
         };
 
         return (
-          <div className="app-container">
-            <h1 className="title">Your Shopping Cart</h1>
-
-            <div className="cart-page">
-              <div className="cart-items">
-                {cartItems.length > 0 ? (
-                  cartItems.map(item => (
-                    <div className="cart-item" key={item.id}>
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="cart-item-image"
-                      />
-                      <div className="cart-item-details">
-                        <h3>{item.name}</h3>
-                        <p className="price">${item.price}</p>
-                        <div className="quantity-control">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            disabled={item.quantity <= 1}
-                          >
-                            -
-                          </button>
-                          <span>{item.quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <button className="remove-button" onClick={() => removeItem(item.id)}>
-                        Remove
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <p>Your cart is empty!</p>
-                )}
+          <Fragment>
+           
+            <div id="Product-Info">
+              <h1 >Products</h1>
+              <img
+                src="https://images.pexels.com/photos/280250/pexels-photo-280250.jpeg?cs=srgb&dl=pexels-pixabay-280250.jpg&fm=jpg"
+                alt="Watch-Classic"
+              />
+              <h3>Rolex Platinum Cross-x Zen-3</h3>
+              <p>$3000.46 USD</p>
+              <h4>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
+                aliquam eligendi.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                obcaecati!
+              </p>
+              <div id="inforPro">
+              <div id="features">
+                <h2>FEATURES</h2>
+                <ul>
+                  <li>Chronograph</li>
+                  <li>Master Chronometer Certified</li>
+                  <li>Tachymeter</li>
+                  <li>Anti-Magnetic</li>
+                  <li>Chronometer</li>
+                  <li>Small Center</li>
+                </ul>
               </div>
 
-              <div className="cart-summary">
-                <h2>Summary</h2>
-                <div className="summary-details">
-                  <p>
-                    Total: <span>${calculateTotal()}</span>
-                  </p>
-                </div>
-                <button className="checkout-button">Proceed to Checkout</button>
+              <div id="ProDetail">
+                <h2>Products Details</h2>
+                <p><b>Between Lugs:</b> 20nm</p>
+                <p><b>Bracelet:</b> Leather Strap</p>
+                <p><b>Case:</b> Steel</p>
+                <p><b>Case Diameter:</b> 42nm</p>
+                <p><b>Dial Color:</b> Black</p>
               </div>
             </div>
-          </div>
-        );
-      };
 
-      ReactDOM.render(<App />, document.getElementById('root'));
+              
+
+              <button onClick={handleClick}>Add To Cart</button>
+
+              <p>
+                <img
+                  src="https://www.svgrepo.com/show/390120/delivery-truck-gift.svg"
+                  alt="Delivery Truck"
+                />
+                2-3 Business Days Delivery
+              </p>
+            </div>
+          </Fragment>
+        );
+      }
+
+      ReactDOM.render(<Product />, document.getElementById("root"));
     </script>
   </body>
 </html>
