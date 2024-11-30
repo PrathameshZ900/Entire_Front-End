@@ -20,40 +20,46 @@
     <script type="text/babel">
         // script.js
 
-        // Dynamic content: A name and the current date
-        const userName = "Prathamesh";
-        const currentDate = new Date().toLocaleDateString();
-
-        // Create a React element with dynamic content using JSX
-        const element = (
-        <div>
-            <h1>Welcome, {userName}!</h1>
-            <p>Today is {currentDate}. Seize the day!</p>
-        </div>
-        );
+ 
 
         // Render the element into the #root div
-        ReactDOM.render(
-        element,
-        document.getElementById('root')
-        );
 
 
-        // function Greeting(props) {
-        //     const isLoggedIn = props.isLoggedIn;
+        function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
 
-        //     return (
-        //         <div>
-        //         {isLoggedIn ? <h1>Welcome back!</h1> : <h1>Please sign in.</h1>}
-        //         </div>
-        //     );
-        //     }
+    // Dynamic content: A name and the current date
+    const userName = "Prathamesh";
+    const currentDate = new Date().toLocaleDateString();
 
-        //     // Rendering conditionally
-        //     ReactDOM.render(
-        //     <Greeting isLoggedIn={true} />,
-        //     document.getElementById('root')
-        //     );
+    // Create a React element with dynamic content using JSX
+    const element = (
+        <div>
+            <h1>{userName}!</h1>
+            <p>Today is {currentDate}. Seize the day!</p>
+        </div>
+    );
+
+    return (
+        <div>
+            {isLoggedIn ? (
+                <div>
+                    <h1>Welcome back! {element} </h1>
+                   
+                </div>
+            ) : (
+                <h1>Please sign in.</h1>
+            )}
+        </div>
+    );
+}
+
+
+            // Rendering conditionally
+            ReactDOM.render(
+            <Greeting isLoggedIn={true} />,
+            document.getElementById('root')
+            );
 
 
     </script>
