@@ -19,9 +19,16 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+       
 
+        #oh{
+            text-align: center;
+            color: #ff3333;
+        }
         h1 {
             color: #333;
+
+
         }
 
         h2 {
@@ -59,12 +66,13 @@
         const ReactFragmentExample = () => {
             // Event handler for the button click
             const handleClick = () => {
-                alert('Button was clicked!');
+                alert('Hello!!, Button was clicked!');
             };
 
             return (
                 // Use React Fragments to group elements without adding extra nodes to the DOM
                 <>
+                    <h1 id="oh">React is a Javascript library</h1>
                     <h1>React Fragments and Event Handling</h1>
                     <h2>Problem:</h2>
                     <p>
