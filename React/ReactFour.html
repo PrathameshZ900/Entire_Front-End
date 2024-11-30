@@ -4,41 +4,127 @@
     <meta charset="UTF-8" />
     <title>JSX and Babel</title>
 
-    <style>
-      .my-component-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 50px;
+   <style>
+  /* General Styling */
+      body {
+          font-family: "Arial", sans-serif;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background: linear-gradient(120deg, #ff7e5f, #feb47b);
+          color: #333;
+          box-sizing: border-box;
       }
 
-      .heading {
-        font-size: 2.5rem;
-        color: #333;
-        margin-bottom: 20px;
+      /* Main Container */
+      div {
+          text-align: center;
+          background-color: #ffffff;
+          border-radius: 20px;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+          padding: 40px 25px;
+          max-width: auto;
+          width: 90%;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
-      .description {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 15px;
-        text-align: center;
+      div:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       }
 
-      .alert-button {
-        background-color: #008cba;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1rem;
-        cursor: pointer;
-        border-radius: 5px;
+      /* Image */
+      div img {
+          width: 120px;
+          height: auto;
+          margin-bottom: 20px;
+          animation: bounce 2s infinite;
       }
 
-      .alert-button:hover {
-        background-color: #005f73;
+      /* Heading */
+      div h1 {
+          font-size: 28px;
+          color: #ff6f61;
+          margin-bottom: 15px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: bold;
       }
-    </style>
+
+      /* Paragraph */
+      div p {
+          font-size: 16px;
+          color: #555;
+          margin-bottom: 25px;
+          line-height: 1.5;
+      }
+
+      /* Input and Button Container */
+      div div {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          align-items: center;
+          margin-top: 15px;
+      }
+
+      /* Input */
+      div input {
+          padding: 12px;
+          border: 1px solid #ddd;
+          border-radius: 25px;
+          width: 65%;
+          font-size: 15px;
+          box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+          outline: none;
+          transition: border 0.3s ease;
+      }
+
+      div input:focus {
+          border: 1px solid #ff6f61;
+      }
+
+      /* Button */
+      div button {
+          padding: 12px 20px;
+          background-color: #ff6f61;
+          border: none;
+          color: white;
+          border-radius: 25px;
+          font-size: 15px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      div button:hover {
+          background-color: #feb47b;
+          transform: scale(1.05);
+      }
+
+      div button:active {
+          transform: scale(0.95);
+      }
+
+      /* Animation for the Image */
+      @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+              transform: translateY(0);
+          }
+          40% {
+              transform: translateY(-10px);
+          }
+          60% {
+              transform: translateY(-5px);
+          }
+      }
+
+
+
+   </style>
   </head>
   <body>
     <div id="root"></div>
@@ -54,20 +140,24 @@
 
       const MyComponent = () => {
         const handleClick = () => {
-          alert("Button Clicked!");
+          alert("SUBSCRIBED CHENEL");
         };
 
         return (
           <Fragment>
-            <div className="my-component-container">
-              <h1 className="heading">React Introduction</h1>
-              <p className="description">
-                This is a simple React component demonstrating React Fragments, JSX, classNames, and event handling.
-              </p>
-              <button className="alert-button" onClick={handleClick}>
-                Click Me
-              </button>
+            
+            <div>
+              <img src="https://www.svgrepo.com/show/368376/mail-open-heart.svg" alt="MailBox"/>
+              <h1>SUBSCRIBE</h1>
+              <p>Subscribe to NewsLetter & stay up to date!</p>
+              <div>
+                <input type="text" placeholder="Parth@Magar.123"/>
+                <button onClick={handleClick}>Subscribe</button>
+
+              </div>
             </div>
+
+
           </Fragment>
         );
       };
