@@ -1,29 +1,27 @@
 {
-  "name": "country-finder",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+    "engines":{
+      "npm":">=8.0.0 <9.0.0",
+      "node":"16.16.0"
+    },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.0.2"
+  "jest": {
+    "automock": false,
+    "verbose": true,
+    "setupFiles": [
+      "<rootDir>/setupJest.js"
+    ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.15.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
-    "globals": "^15.12.0",
-    "vite": "^6.0.1"
+    "jest": "23.6.0",
+    "jest-fetch-mock": "2.1.0"
+  },
+  "dependencies": {
+    "@testing-library/dom": "8.17.1",
+    "@testing-library/jest-dom": "5.16.5",
+    "node-fetch": "3.2.10"
   }
 }
